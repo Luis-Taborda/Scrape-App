@@ -1,51 +1,19 @@
-<div class="container">
-    <div class="header clearfix">
-        <nav>
-            <ul class="nav nav-pills float-right">
-                <li class="nav-item">
-                    <a class="nav-link active" href="/">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="https://www.nytimes.com/" target="_blank">Visit New York Times</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="https://github.com/Luis-Taborda" target="_blank">Visit my Github</a>
-                </li>
-            </ul>
-        </nav>
-        <h3 class="text-muted">Mongo WebScraping</h3>
-    </div>
 
-    <div class="jumbotron">
-        <h1 class="jumboheader">New York Times Scraper</h1>
-        <p class="lead">Scrape the latest articles at your convinience!</p>
-        <p><a class="btn btn-lg btn-success" href="/scrape" role="button">Get the latest !</a></p>
-    </div>
-
-    {{!--News Cards--}} {{!--Iterate through the results and populate the handlebars injection points with the scraped titles,
-    links, and article snippets.--}} {{#each result}}
-    <div class="card news-section">
-        <a href="{{this.link}}">
-            <h4 class="card-header">{{this.title}}</h4>
-        </a>
-        <div class="card-block">
-            {{!--
-            <h4 class="card-title"></h4>
-            </a>--}}
-            <a href="{{this.link}}">
-                <p class="card-text">{{this.articleSnippet}}</p>
-            </a>
-            <br>
-            <a href="/articles/{{this._id}}" class="btn btn-primary">Comment</a>
-        </div>
-    </div>
-    <br>
-    <br> {{/each}}
-
-
-
-    <footer class="footer">
-        <p>&copy; Luis Taborda 2018</p>
-    </footer>
-
+<div class="articles-container">
+	{{#each articles}}
+		<div class="article" data-id="{{this._id}}">
+			<div class="image-div">
+			{{!-- <a href="{{this.link}}"> --}}
+				<div class="comments-button-area">
+					<a href="/{{this.id}}/comments" data-id="{{this._id}}"><span class="far fa-comments comments-button"></span></a>
+				</div>
+				<img class="article-image" src="{{this.image}}" alt="Article Image" onError="this.onerror=null;this.src='/assets/images/placeholder.png';">
+			{{!-- </a> --}}
+			</div>
+			<div class="article-text">
+				<a class="article-title" href="{{this.link}}">{{this.title}}</a>
+				<p class="article-byline">By {{this.author}}</p>
+			</div>
+		</div>
+	{{/each}}
 </div>
